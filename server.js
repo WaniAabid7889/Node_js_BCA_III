@@ -4,4 +4,10 @@
 //npm i nodemon --save-dev //devDep
 
 
-console.log('hello git');
+
+let user = {__id:'101',name:'user1',post:'developer'}
+const userData = ()=>{
+    console.log(user);
+}
+
+userData();
