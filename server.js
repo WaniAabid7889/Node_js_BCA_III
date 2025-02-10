@@ -1,13 +1,24 @@
-//npm init ->package.json
-//npm init -yes //
-//npm install date-fns //dependences
-//npm i nodemon --save-dev //devDep
+const express = require('express');
+const app = express();
+const path = require('path');
+const port = 3004;
 
+// app.get('/',(req,res)=>{
+//     res.send(`${req.method}  ${req.url}`);
+// })
 
+app.get( '/' ,(req,res)=>{
+    res.sendFile(path.join(__dirname,'view','index.html'));
+});
 
-let user = {__id:'101',name:'user1',post:'developer'}
-const userData = ()=>{
-    console.log(user);
-}
+app.get( '/home' ,(req,res)=>{
+    res.sendFile(path.join(__dirname,'view','home.html'));
+});
 
-userData();
+app.get( '/about' ,(req,res)=>{
+    res.sendFile(path.join(__dirname,'view','about.html'));
+});
+
+app.listen(port,()=>{
+    console.log(`this server is running for http://localhost:${port}`)
+});
