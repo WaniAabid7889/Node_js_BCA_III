@@ -1,96 +1,84 @@
-const express = require("express");
-const app = express();
-const path = require("path");
+const express = require('express');
 const port = 3004;
+const app = express();
 
-// app.get('/',(req,res)=>{
-//     res.send(`${req.method}  ${req.url}`);
+
+app.use(express.json());
+
+app.get('/',(req,res)=>{
+  res.send("welcome to express js ");
+})
+
+
+// app.get('/users',(req,res)=>{
+//   res.json({result : {id:'101',name:'user1'}});
 // })
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "view", "index.html"));
-});
 
-app.get("/home", (req, res) => {
-  res.sendFile(path.join(__dirname, "view", "home.html"));
-});
+app.get('/users',async(req,res)=>{
+  let response = await fetch('https://jsonplaceholder.typicode.com/posts');
+  // console.log(response);
+  let data = await response.json();
+  res.json({result : data});
+})
 
-app.get("/about", (req, res) => {
-  res.sendFile(path.join(__dirname, "view", "about.html"));
-});
-
-app.get(
-  "/hello",
-  (req, res, next) => {
-    console.log("we are handle middleware hello.html");
-    //next middleware
-    next();
-    console.log("completed our work");
-  },
-  (req, res) => {
-    console.log("this is middleware");
-    res.sendFile(path.join(__dirname, "view", "hello.html"));
-  }
-);
-
-let user = {
-  id: 101,
-  name: "user1",
-  post: "undefined",
-};
-
-let userData = [
-  {
-    id: 101,
-    name: "user1",
-    post: "imran",
-  },
-  {
-    id: 102,
-    name: "user2",
-    post: "faizan",
-  },
-  {
-    id: 103,
-    name: "user3",
-    post: "asif",
-  },
+let users =[
+    {
+      "userId": 1,
+      "id": 1,
+      "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+      "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+    },
+    {
+      "userId": 1,
+      "id": 2,
+      "title": "qui est esse",
+      "body": "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
+    },
+    {
+      "userId": 1,
+      "id": 3,
+      "title": "ea molestias quasi exercitationem repellat qui ipsa sit aut",
+      "body": "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut"
+    },
+    {
+      "userId": 1,
+      "id": 4,
+      "title": "eum et est occaecati",
+      "body": "ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit"
+    },
+    {
+      "userId": 1,
+      "id": 5,
+      "title": "nesciunt quas odio",
+      "body": "repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed est\nvoluptatem omnis possimus esse voluptatibus quis\nest aut tenetur dolor neque"
+    }
 ];
 
-app.get(
-  "/fetchUser",
-  (req, res, next) => {
-    next();
-  },
-  (req, res) => {
-    res.json({ userData: user });
-    return user;
-  }
-);
+app.get('/users/:id',(req,res)=>{
+    let  id = req.params.id;
+    console.log(id);
+    if(users[0].id==id){
+      console.log(users[0].id);
+      res.json({data : users[0]});
+    }
+})
 
-const user1 = (req, res, next) => {
-  console.log("fetch user one data");
-  console.log(userData[0]);
-  next();
-};
-const user2 = (req, res, next) => {
-  console.log("fetch user two data");
-  console.log(userData[1]);
-  next();
-};
 
-const user3 = (req, res, next) => {
-  console.log("fetch user three data");
-  console.log(userData[2]);
-  res.send(userData);
-};
+app.post('/insert',(req,res)=>{
+  let result = req.body;
+  res.json({message : result}); 
+})
 
-app.get("/chain", [user1, user2, user3]);
 
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "view", "404.html"));
-});
+app.get('/query',(req,res)=>{
+  let queryString = req.query
+  console.log(queryString);
+  res.json({urlData : queryString});
+})
 
-app.listen(port, () => {
-  console.log(`this server is running for http://localhost:${port}`);
-});
+
+
+
+
+app.listen(port);
