@@ -1,0 +1,10 @@
+Current Date : 2025-02-07	10:02:35 Message : log Event Created!
+Current Date : 2025-03-07	10:03:14 Message : log Event Created!
+Current Date : 2025-03-07	10:03:32 Message : log Event Created!
+Current Date : 20250207	10:03:51 Message : log Event Created!
+Current Date : 2025/02/07	10:04:02 Message : log Event Created!
+Current Date : 2025/02/07	10:09:02 Message : log Event Created!
+Current Date : 2025/02/07	10:12:43 Message : hello Event
+Current Date : 2025/02/07	10:12:58 Message : Log Event is Created
+Current Date : 2025/02/07	10:14:06 Message : Log Event is Created
+Current Date : 2025/02/07	10:14:17 Message : Log Event is Created
