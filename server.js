@@ -2,21 +2,12 @@ const express = require('express');
 const port = 3004;
 const app = express();
 app.use(express.json());
+const user = require('./routes/users.routes');
+// console.log(user.getUser());
 app.get('/',(req,res)=>{
   res.send("welcome to express js ");
 })
-
-app.put('/update/:id?',(req,res)=>{
-    let id = req.params.id;
-    let data = req.body;
-    console.log(id);
-    console.log(data);
-    res.json({success:true,result: data, message:"Record is updated"});
+app.get('/user',(req,res)=>{
+  res.json({data : user.getUser() , success: true});
 })
-
-app.delete('/delete/:id?',(req,res)=>{
-   res.status(200).json({success:true, message:"record is deleted"});
-})
-
-
 app.listen(port);
